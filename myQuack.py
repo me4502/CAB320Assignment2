@@ -121,4 +121,4 @@ def build_SVM_classifier(X_training, y_training):
 
 if __name__ == "__main__":
 #    print(my_team())
-    prepare_dataset('/home/astrid/Documents/CAB320/CAB320Assignment2/medical_records.data')
+    prepare_dataset('medical_records.data')
