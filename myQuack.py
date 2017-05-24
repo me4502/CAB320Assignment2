@@ -1,5 +1,4 @@
-
-'''
+"""
 
 Some partially defined functions for the Machine Learning assignment.
 
@@ -7,18 +6,18 @@ You should complete the provided functions and add more functions and classes as
 
 Write a main function that calls different functions to perform the required tasks.
 
-'''
+"""
 import numpy as np
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 def my_team():
-    '''
+    """
     Return the list of the team members of this assignment submission as a list
     of triplet of the form (student_number, first_name, last_name)
 
-    '''
+    """
     return [(8884731, 'Astrid', 'Jonelynas'),
             (8847436, 'Lindsay', 'Watt'),
             (9342401, 'Madeline', 'Miller')]
@@ -27,7 +26,7 @@ def my_team():
 
 
 def prepare_dataset(dataset_path):
-    '''
+    """
     Read a comma separated text file where
         - the first field is a ID number
         - the second field is a class label 'B' or 'M'
@@ -42,18 +41,20 @@ def prepare_dataset(dataset_path):
 
     @return
         X,y
-    '''
-    ##         "INSERT YOUR CODE HERE"
-    # not sure what X is supposed to have data wise?
+    """
     # load data from file
     data = np.genfromtxt(dataset_path, delimiter=',', dtype=None)
-    print(str(data))
-    return data
+    y_list = []
+
+    for row in data:
+        y_list.append(1 if row[1] == b'M' else 0)
+
+    return 0, np.array(y_list)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 def build_NB_classifier(X_training, y_training):
-    '''
+    """
     Build a Naive Bayes classifier based on the training set X_training, y_training.
 
     @param
@@ -62,7 +63,7 @@ def build_NB_classifier(X_training, y_training):
 
     @return
         clf : the classifier built in this function
-    '''
+    """
     ##         "INSERT YOUR CODE HERE"
     raise NotImplementedError()
 
@@ -70,7 +71,7 @@ def build_NB_classifier(X_training, y_training):
 
 
 def build_DT_classifier(X_training, y_training):
-    '''
+    """
     Build a Decision Tree classifier based on the training set X_training, y_training.
 
     @param
@@ -79,7 +80,7 @@ def build_DT_classifier(X_training, y_training):
 
     @return
         clf : the classifier built in this function
-    '''
+    """
     ##         "INSERT YOUR CODE HERE"
     raise NotImplementedError()
 
@@ -87,7 +88,7 @@ def build_DT_classifier(X_training, y_training):
 
 
 def build_NN_classifier(X_training, y_training):
-    '''
+    """
     Build a Nearrest Neighbours classifier based on the training set X_training, y_training.
 
     @param
@@ -96,7 +97,7 @@ def build_NN_classifier(X_training, y_training):
 
     @return
         clf : the classifier built in this function
-    '''
+    """
     ##         "INSERT YOUR CODE HERE"
     raise NotImplementedError()
 
@@ -104,7 +105,7 @@ def build_NN_classifier(X_training, y_training):
 
 
 def build_SVM_classifier(X_training, y_training):
-    '''
+    """
     Build a Support Vector Machine classifier based on the training set X_training, y_training.
 
     @param
@@ -113,12 +114,12 @@ def build_SVM_classifier(X_training, y_training):
 
     @return
         clf : the classifier built in this function
-    '''
+    """
     ##         "INSERT YOUR CODE HERE"
     raise NotImplementedError()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if __name__ == "__main__":
-#    print(my_team())
+    # print(my_team())
     prepare_dataset('medical_records.data')
