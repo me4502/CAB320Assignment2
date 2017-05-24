@@ -45,11 +45,13 @@ def prepare_dataset(dataset_path):
     # load data from file
     data = np.genfromtxt(dataset_path, delimiter=',', dtype=None)
     y_list = []
+    x_list = []
 
     for row in data:
         y_list.append(1 if row[1] == b'M' else 0)
+        x_list.append(row)
 
-    return 0, np.array(y_list)
+    return np.array(x_list), np.array(y_list)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -122,4 +124,4 @@ def build_SVM_classifier(X_training, y_training):
 
 if __name__ == "__main__":
     # print(my_team())
-    prepare_dataset('medical_records.data')
+    print(str(prepare_dataset('medical_records.data')))
