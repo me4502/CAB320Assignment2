@@ -49,8 +49,7 @@ def prepare_dataset(dataset_path):
 
     for row in data:
         y_list.append(1 if row[1] == b'M' else 0)
-        x_list.append(row)
-
+        x_list.append(np.array(list(row)[2:]))
     return np.array(x_list), np.array(y_list)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -124,4 +123,4 @@ def build_SVM_classifier(X_training, y_training):
 
 if __name__ == "__main__":
     # print(my_team())
-    print(str(prepare_dataset('medical_records.data')))
+    print(prepare_dataset('medical_records.data'))
