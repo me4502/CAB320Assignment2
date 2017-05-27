@@ -8,6 +8,8 @@ Write a main function that calls different functions to perform the required tas
 
 """
 import numpy as np
+from sklearn import svm
+from sklearn.model_selection import train_test_split
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -116,11 +118,17 @@ def build_SVM_classifier(X_training, y_training):
     @return
         clf : the classifier built in this function
     """
-    ##         "INSERT YOUR CODE HERE"
-    raise NotImplementedError()
+    svm_classifier = svm.SVC(kernel='linear')
+    svm_classifier.fit(X_training, y_training)
+    return svm_classifier
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if __name__ == "__main__":
-    # print(my_team())
-    print(prepare_dataset('medical_records.data'))
+    X, y = prepare_dataset('medical_records.data')
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
+    X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, test_size=0.5)
+
+    svc = build_SVM_classifier(X_train, y_train)
+    print("scv score: %0.2f" % svc.score(X_test, y_test))
