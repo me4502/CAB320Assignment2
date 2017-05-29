@@ -91,7 +91,7 @@ def build_DT_classifier(X_training, y_training):
     """
     dt_classifier = tree.DecisionTreeClassifier()
     params = [
-        {'splitter': ['best', 'random'], 'max_depth': np.linspace(1, 100, 100)},
+        {'splitter': ['best', 'random'], 'max_depth': np.linspace(1, 100, 100)}
     ]
     clf = GridSearchCV(dt_classifier, params)
     clf.fit(X_training, y_training)
