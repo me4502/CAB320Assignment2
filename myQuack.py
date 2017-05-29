@@ -14,6 +14,7 @@ from sklearn import svm, neighbors, tree
 from sklearn.model_selection import train_test_split, GridSearchCV
 import time
 
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -26,6 +27,7 @@ def my_team():
     return [(8884731, 'Astrid', 'Jonelynas'),
             (8847436, 'Lindsay', 'Watt'),
             (9342401, 'Madeline', 'Miller')]
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -53,9 +55,13 @@ def prepare_dataset(dataset_path):
     x_list = []
 
     for row in data:
+        # Add if the tumour is benign or malignant into the 'y' list.
         y_list.append(1 if row[1] == b'M' else 0)
+        # Copy the row, except ID and benign status to the new 'x' list.
         x_list.append(np.array(list(row)[2:]))
     return np.array(x_list), np.array(y_list)
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -73,6 +79,7 @@ def build_NB_classifier(X_training, y_training):
     """
     ##         "INSERT YOUR CODE HERE"
     raise NotImplementedError()
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -97,6 +104,7 @@ def build_DT_classifier(X_training, y_training):
     clf.fit(X_training, y_training)
     return clf
 
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -113,15 +121,17 @@ def build_NN_classifier(X_training, y_training):
         clf : the classifier built in this function
     """
     neighbor_classifier = neighbors.KNeighborsClassifier()
+    # Use number of neighbours, and size of leaves as main parameters
     params = [
         {
             'n_neighbors': np.arange(20) + 1,
-            'leaf_size': np.arange(50) + 1
+            'leaf_size': np.arange(50) + 1,
         }
     ]
     clf = GridSearchCV(neighbor_classifier, params)
     clf.fit(X_training, y_training)
     return clf
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -147,21 +157,26 @@ def build_SVM_classifier(X_training, y_training):
     clf.fit(X_training, y_training)
     return clf
 
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if __name__ == "__main__":
     start_time = time.clock()
+    # Create initial training and testing data set.
     X, y = prepare_dataset('medical_records.data')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
+    # Test and score the SVM classifier.
     svc = build_SVM_classifier(X_train, y_train)
     print("svc best params:", svc.best_params_)
     print("svc score: %0.2f\n" % svc.score(X_test, y_test))
 
+    # Test and score the NN classifier.
     nn = build_NN_classifier(X_train, y_train)
     print("nn best params:", nn.best_params_)
     print("nn score: %0.2f\n" % nn.score(X_test, y_test))
 
+    # Test and score the DT classifier.
     dt = build_DT_classifier(X_train, y_train)
     print("dt best params:", dt.best_params_)
     print("dt score: %0.2f" % dt.score(X_test, y_test))
