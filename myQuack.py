@@ -9,7 +9,8 @@ Write a main function that calls different functions to perform the required tas
 """
 import numpy as np
 from sklearn import svm
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split, GridSearchCV
+import time
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -110,25 +111,31 @@ def build_NN_classifier(X_training, y_training):
 def build_SVM_classifier(X_training, y_training):
     """
     Build a Support Vector Machine classifier based on the training set X_training, y_training.
-
     @param
         X_training: X_training[i,:] is the ith example
         y_training: y_training[i] is the class label of X_training[i,:]
-
     @return
         clf : the classifier built in this function
     """
-    svm_classifier = svm.SVC(kernel='linear')
-    print(cross_val_score(svm_classifier, X_training, y_training, cv=5))
-    svm_classifier.fit(X_training, y_training)
-    return svm_classifier
-
+    svm_classifier = svm.SVC()
+    params = [
+        {'C': np.logspace(-3, 3, 7), 'kernel': ['linear']},
+        {'C': np.logspace(-3, 3, 7), 'gamma': np.logspace(-4, 4, 9), 'kernel': ['rbf']},
+        # {'C': [1, 10, 100, 1000], 'kernel': ['poly'], 'degree': [1, 2]}
+    ]
+    clf = GridSearchCV(svm_classifier, params)
+    clf.fit(X_training, y_training)
+    return clf
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 if __name__ == "__main__":
+    start_time = time.clock()
     X, y = prepare_dataset('medical_records.data')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
     svc = build_SVM_classifier(X_train, y_train)
-    print("scv score: %0.2f" % svc.score(X_test, y_test))
+    print("svc best params:", svc.best_params_)
+    print("svc score: %0.2f" % svc.score(X_test, y_test))
+
+    print("\nTook %d seconds to run" % (time.clock() - start_time))
