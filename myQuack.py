@@ -8,7 +8,7 @@ Write a main function that calls different functions to perform the required tas
 
 """
 import numpy as np
-from sklearn import svm
+from sklearn import svm, neighbors
 from sklearn.model_selection import train_test_split, GridSearchCV
 import time
 
@@ -102,8 +102,16 @@ def build_NN_classifier(X_training, y_training):
     @return
         clf : the classifier built in this function
     """
-    ##         "INSERT YOUR CODE HERE"
-    raise NotImplementedError()
+    neighbor_classifier = neighbors.KNeighborsClassifier()
+    params = [
+        {
+            'n_neighbors': np.arange(20) + 1,
+            'leaf_size': np.arange(50) + 1
+        }
+    ]
+    clf = GridSearchCV(neighbor_classifier, params)
+    clf.fit(X_training, y_training)
+    return clf
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -134,7 +142,7 @@ if __name__ == "__main__":
     X, y = prepare_dataset('medical_records.data')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-    svc = build_SVM_classifier(X_train, y_train)
+    svc = build_NN_classifier(X_train, y_train)
     print("svc best params:", svc.best_params_)
     print("svc score: %0.2f" % svc.score(X_test, y_test))
 
