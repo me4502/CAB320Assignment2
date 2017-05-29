@@ -2,9 +2,11 @@
 
 Some partially defined functions for the Machine Learning assignment.
 
-You should complete the provided functions and add more functions and classes as necessary.
+You should complete the provided functions and add more functions and classes
+as necessary.
 
-Write a main function that calls different functions to perform the required tasks.
+Write a main function that calls different functions to perform the required
+tasks.
 
 """
 import numpy as np
@@ -59,7 +61,8 @@ def prepare_dataset(dataset_path):
 
 def build_NB_classifier(X_training, y_training):
     """
-    Build a Naive Bayes classifier based on the training set X_training, y_training.
+    Build a Naive Bayes classifier based on the training set X_training,
+    y_training.
 
     @param
         X_training: X_training[i,:] is the ith example
@@ -76,7 +79,8 @@ def build_NB_classifier(X_training, y_training):
 
 def build_DT_classifier(X_training, y_training):
     """
-    Build a Decision Tree classifier based on the training set X_training, y_training.
+    Build a Decision Tree classifier based on the training set X_training,
+    y_training.
 
     @param
         X_training: X_training[i,:] is the ith example
@@ -98,7 +102,8 @@ def build_DT_classifier(X_training, y_training):
 
 def build_NN_classifier(X_training, y_training):
     """
-    Build a Nearrest Neighbours classifier based on the training set X_training, y_training.
+    Build a Nearest Neighbours classifier based on the training set
+    X_training, y_training.
 
     @param
         X_training: X_training[i,:] is the ith example
@@ -123,7 +128,8 @@ def build_NN_classifier(X_training, y_training):
 
 def build_SVM_classifier(X_training, y_training):
     """
-    Build a Support Vector Machine classifier based on the training set X_training, y_training.
+    Build a Support Vector Machine classifier based on the training set
+    X_training, y_training.
     @param
         X_training: X_training[i,:] is the ith example
         y_training: y_training[i] is the class label of X_training[i,:]
@@ -133,7 +139,8 @@ def build_SVM_classifier(X_training, y_training):
     svm_classifier = svm.SVC()
     params = [
         {'C': np.logspace(-3, 3, 7), 'kernel': ['linear']},
-        {'C': np.logspace(-3, 3, 7), 'gamma': np.logspace(-4, 4, 9), 'kernel': ['rbf']},
+        {'C': np.logspace(-3, 3, 7), 'gamma': np.logspace(-4, 4, 9), 'kernel':
+            ['rbf']},
         # {'C': [1, 10, 100, 1000], 'kernel': ['poly'], 'degree': [1, 2]}
     ]
     clf = GridSearchCV(svm_classifier, params)
