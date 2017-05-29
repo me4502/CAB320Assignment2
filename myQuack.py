@@ -125,7 +125,7 @@ def build_NN_classifier(X_training, y_training):
     params = [
         {
             'n_neighbors': np.arange(20) + 1,
-            'leaf_size': np.arange(50) + 1,
+            'leaf_size': np.arange(50) + 1
         }
     ]
     clf = GridSearchCV(neighbor_classifier, params)
