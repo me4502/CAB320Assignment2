@@ -8,7 +8,7 @@ Write a main function that calls different functions to perform the required tas
 
 """
 import numpy as np
-from sklearn import svm, neighbors
+from sklearn import svm, neighbors, tree
 from sklearn.model_selection import train_test_split, GridSearchCV
 import time
 
@@ -85,8 +85,13 @@ def build_DT_classifier(X_training, y_training):
     @return
         clf : the classifier built in this function
     """
-    ##         "INSERT YOUR CODE HERE"
-    raise NotImplementedError()
+    dt_classifier = tree.DecisionTreeClassifier()
+    params = [
+        {'splitter': ['best', 'random'], 'max_depth': np.linspace(1, 100, 100)},
+    ]
+    clf = GridSearchCV(dt_classifier, params)
+    clf.fit(X_training, y_training)
+    return clf
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -142,8 +147,16 @@ if __name__ == "__main__":
     X, y = prepare_dataset('medical_records.data')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-    svc = build_NN_classifier(X_train, y_train)
+    svc = build_SVM_classifier(X_train, y_train)
     print("svc best params:", svc.best_params_)
-    print("svc score: %0.2f" % svc.score(X_test, y_test))
+    print("svc score: %0.2f\n" % svc.score(X_test, y_test))
 
-    print("\nTook %d seconds to run" % (time.clock() - start_time))
+    nn = build_NN_classifier(X_train, y_train)
+    print("nn best params:", nn.best_params_)
+    print("nn score: %0.2f\n" % nn.score(X_test, y_test))
+
+    dt = build_DT_classifier(X_train, y_train)
+    print("dt best params:", dt.best_params_)
+    print("dt score: %0.2f" % dt.score(X_test, y_test))
+
+    print("\nTook %0.2f seconds to run" % (time.clock() - start_time))
