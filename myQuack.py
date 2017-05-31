@@ -22,7 +22,6 @@ def my_team():
     """
     Return the list of the team members of this assignment submission as a list
     of triplet of the form (student_number, first_name, last_name)
-
     """
     return [(8884731, 'Astrid', 'Jonelynas'),
             (8847436, 'Lindsay', 'Watt'),
