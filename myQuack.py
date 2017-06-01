@@ -163,19 +163,17 @@ if __name__ == "__main__":
     X, y = prepare_dataset('medical_records.data')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-    # Test and score the SVM classifier.
-    svc = build_SVM_classifier(X_train, y_train)
-    print("svc best params:", svc.best_params_)
-    print("svc score: %0.2f\n" % svc.score(X_test, y_test))
+    # Create a list of classifiers with names.
+    classifiers = [[build_NB_classifier, "Naive Bayes"],
+                   [build_DT_classifier, "Decision Tree"],
+                   [build_NN_classifier, "Nearest Neighbour"],
+                   [build_SVM_classifier, "Support Vector Machine"]]
 
-    # Test and score the NN classifier.
-    nn = build_NN_classifier(X_train, y_train)
-    print("nn best params:", nn.best_params_)
-    print("nn score: %0.2f\n" % nn.score(X_test, y_test))
+    # Test each classifier and output values.
+    for classifier_function, name in classifiers:
+        classifier = classifier_function(X_train, y_train)
+        print(name + " best params: ", classifier.best_params_)
+        print(name + " score: %0.2f\n" % classifier.score(X_test, y_test))
 
-    # Test and score the DT classifier.
-    dt = build_DT_classifier(X_train, y_train)
-    print("dt best params:", dt.best_params_)
-    print("dt score: %0.2f" % dt.score(X_test, y_test))
-
+    # Output time taken for overall testing
     print("\nTook %0.2f seconds to run" % (time.clock() - start_time))
