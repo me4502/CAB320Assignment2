@@ -50,15 +50,13 @@ def prepare_dataset(dataset_path):
     """
     # load data from file
     data = np.genfromtxt(dataset_path, delimiter=',', dtype=None)
-    y_list = []
-    x_list = []
+    # Add if the tumour is benign or malignant into the 'y' list.
+    y_list = [1 if row[1] == b'M' else 0 for row in data]
+    # Copy the row, except ID and benign status to the new 'x' list. ID is
+    # irrelevant to if it's cancerous or not.
+    X_list = [list(row)[2:] for row in data]
 
-    for row in data:
-        # Add if the tumour is benign or malignant into the 'y' list.
-        y_list.append(1 if row[1] == b'M' else 0)
-        # Copy the row, except ID and benign status to the new 'x' list.
-        x_list.append(np.array(list(row)[2:]))
-    return np.array(x_list), np.array(y_list)
+    return np.array(X_list), np.array(y_list)
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
