@@ -104,6 +104,10 @@ def build_DT_classifier(X_training, y_training):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# Constants for the Nearest Neighbor classifier
+MAX_N_NEIGHBORS = 20
+MAX_LEAF_SIZE = 50
+
 
 def build_NN_classifier(X_training, y_training):
     """
@@ -121,8 +125,8 @@ def build_NN_classifier(X_training, y_training):
     # Use number of neighbours, and size of leaves as main parameters
     params = [
         {
-            'n_neighbors': np.arange(20) + 1,
-            'leaf_size': np.arange(50) + 1
+            'n_neighbors': np.arange(MAX_N_NEIGHBORS) + 1,
+            'leaf_size': np.arange(MAX_LEAF_SIZE) + 1
         }
     ]
     clf = GridSearchCV(neighbor_classifier, params)
@@ -157,11 +161,14 @@ def build_SVM_classifier(X_training, y_training):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+TEST_SPLIT = 0.3
+
 if __name__ == "__main__":
     start_time = time.clock()
     # Create initial training and testing data set.
     X, y = prepare_dataset('medical_records.data')
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                        test_size=TEST_SPLIT)
 
     # Create a list of classifiers with names.
     classifiers = [[build_NB_classifier, "Naive Bayes"],
