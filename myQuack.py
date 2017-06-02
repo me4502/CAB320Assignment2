@@ -10,7 +10,7 @@ tasks.
 
 """
 import numpy as np
-from sklearn import svm, neighbors, tree
+from sklearn import svm, neighbors, tree, naive_bayes
 from sklearn.model_selection import train_test_split, GridSearchCV
 import time
 
@@ -74,8 +74,17 @@ def build_NB_classifier(X_training, y_training):
     @return
         clf : the classifier built in this function
     """
-    ##         "INSERT YOUR CODE HERE"
-    raise NotImplementedError()
+    # Create relevant classifier using sklearn library
+    nb_classifier = naive_bayes.GaussianNB()
+
+    # There are no hyper parameters for Naive Bayes ?
+    # On sklearn only one is 'prior' which can take prior probabilities of
+    # the classes, it is automatically set to 'none' which means
+    # they are adjusted according to the data.
+
+    # Train the model using the training data
+    nb_classifier.fit(X_training, y_training)
+    return nb_classifier
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -201,7 +210,7 @@ if __name__ == "__main__":
     # Test each classifier and output values.
     for classifier_function, name in classifiers:
         classifier = classifier_function(X_train, y_train)
-        print(name + " best params: ", classifier.best_params_)
+        # print(name + " best params: ", classifier.best_params_)
         print(name + " score: %0.2f\n" % classifier.score(X_test, y_test))
 
     # Output time taken for overall testing
