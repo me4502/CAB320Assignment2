@@ -95,7 +95,10 @@ def build_DT_classifier(X_training, y_training):
     """
     dt_classifier = tree.DecisionTreeClassifier()
     params = [
-        {'splitter': ['best', 'random'], 'max_depth': np.linspace(1, 100, 100)}
+        {
+            'splitter': ['best', 'random'],
+            'max_depth': np.linspace(1, 100, 100)
+        }
     ]
     clf = GridSearchCV(dt_classifier, params)
     clf.fit(X_training, y_training)
@@ -149,10 +152,15 @@ def build_SVM_classifier(X_training, y_training):
     """
     svm_classifier = svm.SVC()
     params = [
-        {'C': np.logspace(-3, 3, 7), 'kernel': ['linear']},
-        {'C': np.logspace(-3, 3, 7), 'gamma': np.logspace(-4, 4, 9), 'kernel':
-            ['rbf']},
-        # {'C': [1, 10, 100, 1000], 'kernel': ['poly'], 'degree': [1, 2]}
+        {
+            'C': np.logspace(-3, 3, 7),
+            'kernel': ['linear']
+        },
+        {
+            'C': np.logspace(-3, 3, 7),
+            'gamma': np.logspace(-4, 4, 9),
+            'kernel': ['rbf']
+        }
     ]
     clf = GridSearchCV(svm_classifier, params)
     clf.fit(X_training, y_training)
