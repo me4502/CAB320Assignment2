@@ -76,6 +76,18 @@ def build_NB_classifier(X_training, y_training):
     """
     # Create relevant classifier using sklearn library
     nb_classifier = naive_bayes.GaussianNB()
+    params = [
+        {
+            'priors': list(
+                np.transpose([np.linspace(0.01, 0.99, 90),
+                              np.linspace(0.99, 0.01, 90)])
+            )
+        },
+        {
+            'priors': [None]
+        }
+    ]
+    nb_classifier = GridSearchCV(nb_classifier, params)
 
     # There are no hyper parameters for Naive Bayes ?
     # On sklearn only one is 'prior' which can take prior probabilities of
@@ -210,7 +222,7 @@ if __name__ == "__main__":
     # Test each classifier and output values.
     for classifier_function, name in classifiers:
         classifier = classifier_function(X_train, y_train)
-        # print(name + " best params: ", classifier.best_params_)
+        print(name + " best params: ", classifier.best_params_)
         print(name + " score: %0.2f\n" % classifier.score(X_test, y_test))
 
     # Output time taken for overall testing
