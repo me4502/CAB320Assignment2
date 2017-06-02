@@ -97,7 +97,7 @@ def build_DT_classifier(X_training, y_training):
     params = [
         {
             'splitter': ['best', 'random'],
-            'max_depth': np.linspace(1, 100, 100)
+            'max_depth': np.linspace(DT_DEPTH_START, DT_DEPTH_STOP, DT_DEPTH_NUM)
         }
     ]
     clf = GridSearchCV(dt_classifier, params)
@@ -153,12 +153,12 @@ def build_SVM_classifier(X_training, y_training):
     svm_classifier = svm.SVC()
     params = [
         {
-            'C': np.logspace(-3, 3, 7),
+            'C': np.logspace(SVM_C_START, SVM_C_STOP, SVM_C_NUM),
             'kernel': ['linear']
         },
         {
-            'C': np.logspace(-3, 3, 7),
-            'gamma': np.logspace(-4, 4, 9),
+            'C': np.logspace(SVM_C_START, SVM_C_STOP, SVM_C_NUM),
+            'gamma': np.logspace(SVM_GAMMA_START, SVM_GAMMA_STOP, SVM_GAMMA_NUM),
             'kernel': ['rbf']
         }
     ]
@@ -170,6 +170,19 @@ def build_SVM_classifier(X_training, y_training):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 TEST_SPLIT = 0.3
+
+# parameter testing range for SVM classifier
+SVM_C_START = -3
+SVM_C_STOP = 3
+SVM_C_NUM = 7
+SVM_GAMMA_START = -4
+SVM_GAMMA_STOP = 4
+SVM_GAMMA_NUM = 9
+
+# parameter testing range for DT classifier
+DT_DEPTH_START = 1
+DT_DEPTH_STOP = 100
+DT_DEPTH_NUM = 100
 
 if __name__ == "__main__":
     start_time = time.clock()
