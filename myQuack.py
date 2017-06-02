@@ -158,7 +158,8 @@ def build_SVM_classifier(X_training, y_training):
         },
         {
             'C': np.logspace(SVM_C_START, SVM_C_STOP, SVM_C_NUM),
-            'gamma': np.logspace(SVM_GAMMA_START, SVM_GAMMA_STOP, SVM_GAMMA_NUM),
+            'gamma': np.logspace(SVM_GAMMA_START, SVM_GAMMA_STOP,
+                                 SVM_GAMMA_NUM),
             'kernel': ['rbf']
         }
     ]
