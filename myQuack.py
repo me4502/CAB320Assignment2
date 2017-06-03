@@ -118,7 +118,8 @@ def build_DT_classifier(X_training, y_training):
     params = [
         {
             'splitter': ['best', 'random'],
-            'max_depth': np.linspace(DT_DEPTH_START, DT_DEPTH_STOP, DT_DEPTH_NUM)
+            'max_depth': np.linspace(DT_DEPTH_START, DT_DEPTH_STOP,
+                                     DT_DEPTH_NUM)
         }
     ]
     clf = GridSearchCV(dt_classifier, params)
