@@ -12,6 +12,7 @@ tasks.
 import numpy as np
 from sklearn import svm, neighbors, tree, naive_bayes
 from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import classification_report
 import time
 
 
@@ -223,8 +224,10 @@ if __name__ == "__main__":
     # Test each classifier and output values.
     for classifier_function, name in classifiers:
         classifier = classifier_function(X_train, y_train)
-        print(name + " best params: ", classifier.best_params_)
-        print(name + " score: %0.2f\n" % classifier.score(X_test, y_test))
+        predictions = classifier.predict(X_test)
+        print(name, "best params:", classifier.best_params_)
+        print(name, "Classification Report:")
+        print(classification_report(y_test, predictions))
 
     # Output time taken for overall testing
     print("\nTook %0.2f seconds to run" % (time.clock() - start_time))
