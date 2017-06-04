@@ -91,8 +91,10 @@ def build_NB_classifier(X_training, y_training):
         {
             'priors': list(
                 np.transpose(
-                    [np.linspace(NB_PRIORS_START, NB_PRIORS_STOP, NB_PRIORS_NUM),
-                     np.linspace(NB_PRIORS_STOP, NB_PRIORS_START, NB_PRIORS_NUM)])
+                    [np.linspace(NB_PRIORS_START, NB_PRIORS_STOP,
+                                 NB_PRIORS_NUM),
+                     np.linspace(NB_PRIORS_STOP, NB_PRIORS_START,
+                                 NB_PRIORS_NUM)])
             )
         },
         {
