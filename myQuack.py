@@ -80,8 +80,8 @@ def build_NB_classifier(X_training, y_training):
     params = [
         {
             'priors': list(
-                np.transpose([np.linspace(0.01, 0.99, 90),
-                              np.linspace(0.99, 0.01, 90)])
+                np.transpose([np.linspace(NB_PRIORS_START, NB_PRIORS_STOP, NB_PRIORS_NUM),
+                              np.linspace(NB_PRIORS_STOP, NB_PRIORS_START, NB_PRIORS_NUM)])
             )
         },
         {
@@ -207,6 +207,11 @@ SVM_GAMMA_NUM = 9
 DT_DEPTH_START = 1
 DT_DEPTH_STOP = 100
 DT_DEPTH_NUM = 100
+
+# parameter testing range for NB classifier
+NB_PRIORS_START = 0.01
+NB_PRIORS_STOP = 0.99
+NB_PRIORS_NUM = 90
 
 if __name__ == "__main__":
     start_time = time.clock()
